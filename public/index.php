@@ -306,5 +306,6 @@ $csrf = htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8');
 
     <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
     <script src="../assets/js/app.js" defer></script>
+    <script src="../assets/js/bridge-feedback-guard.js" defer></script>
 </body>
 </html>
