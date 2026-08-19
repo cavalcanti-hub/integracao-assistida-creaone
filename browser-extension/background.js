@@ -101,9 +101,29 @@ async function openCreaOneArt(art) {
 async function processOpenArtCommand(command) {
   const art = String(command?.art || '');
   const commandId = String(command?.command_id || '');
-  const result = await openCreaOneArt(art);
-  await acknowledgeCommand(commandId);
-  return { ...result, commandId };
+  if (!commandId) {
+    throw new Error('Comando de abertura sem identificador.');
+  }
+
+  const session = await chrome.storage.session.get('handledOpenArtCommands');
+  const handled = session.handledOpenArtCommands || {};
+  if (handled[commandId]) {
+    return { ok: true, duplicate: true, ignored: true, art, commandId };
+  }
+
+  // Marca antes de abrir para impedir duas execuções concorrentes do mesmo comando.
+  handled[commandId] = new Date().toISOString();
+  await chrome.storage.session.set({ handledOpenArtCommands: handled });
+
+  try {
+    const result = await openCreaOneArt(art);
+    await acknowledgeCommand(commandId);
+    return { ...result, commandId };
+  } catch (error) {
+    delete handled[commandId];
+    await chrome.storage.session.set({ handledOpenArtCommands: handled });
+    throw error;
+  }
 }
 
 async function openAtlantica() {

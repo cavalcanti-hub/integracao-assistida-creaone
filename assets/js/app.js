@@ -503,20 +503,10 @@
             setOpenArtFeedback('Digite um número de ART válido, usando somente números.', 'error');
             return;
         }
-        await withBusy(event.submitter || $('#open-art-button'), async () => {
-            try {
-                stopOpenArtTracker();
-                setOpenArtFeedback('Enviando para a extensão...');
-                const result = await sendBridgeCommand({ art });
-                setOpenArtFeedback('Comando pendente...');
-                startOpenArtTracker(result.command_id);
-                toast(result.message);
-            } catch (error) {
-                stopOpenArtTracker();
-                setOpenArtFeedback(error.message, 'error');
-                toast(error.message, 'error');
-            }
-        });
+        stopOpenArtTracker();
+        const message = 'A abertura automática do CreaOne foi desativada por segurança. Nenhuma aba será aberta pelo sistema.';
+        setOpenArtFeedback(message, 'error');
+        toast(message, 'error');
     });
 
     $('#import-form').addEventListener('submit', async (event) => {

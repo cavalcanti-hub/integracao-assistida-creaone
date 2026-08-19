@@ -85,14 +85,14 @@
     chrome.runtime.sendMessage({ type: 'PING_BRIDGE' }).catch(() => {});
   }
 
+  // Heartbeat apenas informa que a extensão está instalada.
+  // Comandos de abertura não são consultados automaticamente: isso evita
+  // redirecionamentos e criação repetida de abas do CreaOne.
   heartbeat();
-  pollCommand();
   setInterval(heartbeat, 10000);
-  setInterval(pollCommand, 1000);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       heartbeat();
-      pollCommand();
     }
   });
 })();
