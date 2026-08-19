@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Teste local do extrator CreaOne</title>
+</head>
+<body data-test-status="pending">
+  <iframe id="normal" src="fixtures/creaone/art-normal.html"></iframe>
+  <iframe id="without-company" src="fixtures/creaone/art-sem-empresa.html"></iframe>
+  <iframe id="empty-fields" src="fixtures/creaone/art-campos-vazios.html"></iframe>
+  <iframe id="without-result" src="fixtures/creaone/sem-resultado.html"></iframe>
+  <iframe id="modal" src="fixtures/creaone/modal-detalhes.html"></iframe>
+  <pre id="test-output">Aguardando fixtures…</pre>
+  <script src="../browser-extension/preparer.js"></script>
+  <script src="../browser-extension/extractor.js"></script>
+  <script src="browser-extractor-runner.js"></script>
+</body>
+</html>

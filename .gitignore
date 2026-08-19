@@ -1,0 +1,6 @@
+/storage/logs/*.log
+/storage/debug/*
+!/storage/debug/.gitkeep
+/storage/imports/*
+!/storage/imports/.gitkeep
+/config/browser_bridge.php

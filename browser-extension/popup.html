@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atlântica — Captura CreaOne</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <span class="mark">A</span>
+      <div><strong>ATLÂNTICA GESTÃO TÉCNICA</strong><small>Captura assistida CreaOne</small></div>
+    </header>
+
+    <section class="status-card">
+      <span class="status-dot" data-dot></span>
+      <div><small>Status</small><strong data-status>CreaOne não detectado</strong></div>
+    </section>
+
+    <section class="summary" data-summary hidden>
+      <h1>ART <span data-art></span></h1>
+      <dl>
+        <div><dt>Empresa</dt><dd data-company>—</dd></div>
+        <div><dt>Responsável</dt><dd data-professional>—</dd></div>
+        <div><dt>Atividades</dt><dd data-activities>0</dd></div>
+        <div><dt>Obras</dt><dd data-works>0</dd></div>
+      </dl>
+      <button class="primary" type="button" data-send>Enviar para Atlântica</button>
+      <button class="secondary" type="button" data-open-atlantica hidden>Abrir no Atlântica</button>
+      <p class="feedback" data-feedback></p>
+    </section>
+
+    <details>
+      <summary>Configuração da conexão</summary>
+      <form data-settings>
+        <label>URL da Atlântica<input name="baseUrl" type="url" value="http://localhost/sistema_atlantica" required></label>
+        <label>Código de conexão<input name="connectionCode" type="text" maxlength="14" placeholder="XXXX-XXXX-XXXX" autocomplete="off" required></label>
+        <button class="secondary" type="submit">Salvar configuração</button>
+        <p class="feedback" data-settings-feedback></p>
+      </form>
+    </details>
+  </main>
+  <script src="popup.js"></script>
+</body>
+</html>

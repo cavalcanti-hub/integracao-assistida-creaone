@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Atlântica — Captura CreaOne",
+  "version": "1.1.0",
+  "description": "Captura assistida dos dados públicos de uma ART já renderizada no CreaOne.",
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://creanet1.creasp.org.br/_UI/Pages/ConsultaPublica/PesquisaART/*",
+    "http://localhost/sistema_atlantica/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Atlântica — Captura CreaOne",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://creanet1.creasp.org.br/_UI/Pages/ConsultaPublica/PesquisaART/*"
+      ],
+      "js": [
+        "preparer.js",
+        "extractor.js",
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "http://localhost/sistema_atlantica/public/*"
+      ],
+      "js": [
+        "local-bridge.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
