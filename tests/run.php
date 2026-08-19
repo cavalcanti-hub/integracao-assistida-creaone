@@ -285,6 +285,10 @@ check(is_array($storedCommand) && ($storedCommand['status'] ?? null) === 'pendin
 $consumedCommand = $bridgeStore->consumeCommand();
 check(is_array($consumedCommand) && $consumedCommand['command_id'] === $createdCommand['command_id'] && ($consumedCommand['status'] ?? null) === 'delivered', 'Extensão pode receber o comando open_art pendente.');
 check($bridgeStore->consumeCommand() === null, 'Comando entregue não é reenviado imediatamente.');
+$storedDeliveredCommand = json_decode((string) file_get_contents($bridgeDirectory . '/bridge-command.json'), true);
+$storedDeliveredCommand['delivered_at'] = '2026-08-18T17:00:00-03:00';
+file_put_contents($bridgeDirectory . '/bridge-command.json', json_encode($storedDeliveredCommand, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL);
+check($bridgeStore->consumeCommand() === null, 'Comando entregue não é reenviado depois de expirar.');
 $deliveredStatus = $bridgeStore->commandStatus($createdCommand['command_id']);
 check(is_array($deliveredStatus) && ($deliveredStatus['status'] ?? null) === 'delivered' && ($deliveredStatus['delivered_at'] ?? null) !== null, 'Status do comando muda para delivered após a captura da extensão.');
 $ackedCommand = $bridgeStore->acknowledgeCommand($createdCommand['command_id']);
