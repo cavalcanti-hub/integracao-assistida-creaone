@@ -150,7 +150,7 @@ async function pollCommand() {
 }
 
 async function bridgeCycle() {
-  await Promise.allSettled([
+  return Promise.allSettled([
     bridgeRequest('creaone_browser_ping.php'),
     pollCommand()
   ]);
@@ -180,8 +180,8 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     return true;
   }
   if (message?.type === 'PING_BRIDGE') {
-    bridgeRequest('creaone_browser_ping.php')
-      .then(sendResponse)
+    bridgeCycle()
+      .then((results) => sendResponse({ ok: true, cycle: results }))
       .catch((error) => sendResponse({ ok: false, message: error.message }));
     return true;
   }
