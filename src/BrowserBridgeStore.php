@@ -121,7 +121,7 @@ final class BrowserBridgeStore
                 flock($handle, LOCK_UN);
                 return null;
             }
-            if (($decoded['status'] ?? 'pending') === 'delivered' && !$this->isDeliveryExpired($decoded)) {
+            if (($decoded['status'] ?? 'pending') === 'delivered') {
                 flock($handle, LOCK_UN);
                 return null;
             }
