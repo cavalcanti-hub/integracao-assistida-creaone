@@ -151,8 +151,7 @@ async function pollCommand() {
 
 async function bridgeCycle() {
   return Promise.allSettled([
-    bridgeRequest('creaone_browser_ping.php'),
-    pollCommand()
+    bridgeRequest('creaone_browser_ping.php')
   ]);
 }
 
